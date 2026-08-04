@@ -8,7 +8,7 @@
 
 Este projeto nasceu da ideia de validar se os dados meteorológicos públicos (radiação solar, temperatura e umidade) seriam capazes de prever com precisão a eficiência de geração de energia no mundo real. 
 
-Para isso, construí uma pipeline de dados em Python para consumir a API REST da Open-Meteo para a região de Belém-PA e criei um dashboard no Power BI para a visualização. A validação prática do modelo foi feita comparando os indicadores climáticos simulados diretamente com os **relatórios de produção diária do meu próprio sistema fotovoltaico residencial (8.5 kW)**.
+Para isso, construí uma pipeline de dados em Python para consumir a API REST da Open-Meteo para a região de Belém-PA e criei um dashboard no Power BI para a visualização. A validação prática do modelo foi feita comparando os indicadores climáticos simulados diretamente com os **relatórios de produção diária do meu próprio sistema fotovoltaico residencial (~8.5 kW)**.
 
 ---
 
@@ -44,7 +44,7 @@ A grande virada analítica do projeto foi confrontar a teoria dos dados com a pr
 
 * **Máxima Irradiância:** A radiação solar atingiu o pico de **774,40 W/m²**.
 * **Aproveitamento Operacional:** **45,83%** das horas monitoradas no dia apresentaram **Alto Potencial** de geração.
-* **Produção Resultante:** A conjuntura climática analisada permitiu uma geração real diária de **41,5 kWh** no sistema fotovoltaico.
+* **Produção Resultante:** A conjuntura climática analisada permitiu uma geração real diária de **45,3 kWh** no sistema fotovoltaico.
 
 ---
 
