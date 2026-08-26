@@ -1,0 +1,29 @@
+name: ETL Clima Belém - Diário
+
+on:
+  schedule:
+    # Roda todo dia às 06:00 da manhã (horário UTC)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Permite rodar manualmente pelo botão no site do GitHub
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copiar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar ambiente Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests pandas numpy pyarrow google-cloud-bigquery
+
+      - name: Executar Pipeline ETL
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          python main.py
