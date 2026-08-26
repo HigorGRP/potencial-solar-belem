@@ -4,7 +4,7 @@ on:
   schedule:
     # Roda todo dia às 06:00 da manhã (horário UTC)
     - cron: '0 6 * * *'
-  workflow_dispatch: # Permite rodar manualmente pelo botão no site do GitHub
+  workflow_dispatch:
 
 jobs:
   run-etl:
