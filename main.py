@@ -6,14 +6,13 @@ import pandas as pd
 from google.cloud import bigquery
 from typing import Optional
 
-# Se estiver rodando no GitHub Actions, cria o arquivo temporário com a chave da Secret
+
 if "GCP_SA_KEY" in os.environ:
     creds_json = os.environ["GCP_SA_KEY"]
-    with open("credenciais.json", "w") as f:
+    with open("credenciais.json", "w", encoding="utf-8") as f:
         f.write(creds_json)
-
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credenciais.json"
+    
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath("credenciais.json")
 
 def extrair_dados_clima(lat: float, lon: float) -> Optional[dict]:
     """Realiza a requisição dos dados de previsão do tempo na API Open-Meteo."""
@@ -83,6 +82,7 @@ def carregar_no_bigquery(df: pd.DataFrame, project_id: str, dataset_id: str, tab
         print(f"Dados carregados com sucesso para: {table_ref}")
     except Exception as e:
         print(f"Erro ao carregar dados no BigQuery: {e}")
+        raise e  # Garante que o GitHub Actions fique vermelho e exiba o erro exato caso ocorra falha
 
 if __name__ == "__main__":
     LATITUDE_BELEM = -1.4558
