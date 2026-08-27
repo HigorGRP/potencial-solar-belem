@@ -150,19 +150,19 @@ try:
                 line=dict(color="#d93636", width=2.5)
             ))
             
-            # Layout e estilização do gráfico de linhas adaptado para texto escuro
+            # Layout e estilização do gráfico de linhas (Cores adaptadas via tema do Streamlit)
             fig_linha.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="white", size=10),
+                font=dict(size=10),
                 xaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
                 yaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
                 yaxis2=dict(title="", overlaying="y", side="right", showgrid=False),
-                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="white", size=9)),
+                legend=dict(orientation="h", y=1.2, x=0, font=dict(size=9)),
                 margin=dict(l=10, r=10, t=10, b=10),
                 height=280
             )
-            st.plotly_chart(fig_linha, use_container_width=True, key="grafico_linhas_solar")
+            st.plotly_chart(fig_linha, use_container_width=True, theme="streamlit", key="grafico_linhas_solar")
             
         # Gráfico 2: Gráfico de Rosca (Distribuição do Status de Geração Solar)
         with col_graf2:
@@ -180,16 +180,16 @@ try:
                     color_discrete_sequence=["#e6b800", "#777777", "#ff7f0e"]
                 )
                 
-                # Layout e estilização do gráfico de rosca adaptado para texto escuro
+                # Layout e estilização do gráfico de rosca (Cores adaptadas via tema do Streamlit)
                 fig_pizza.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
-                    font=dict(color="black", size=10),
-                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="white", size=9)),
+                    font=dict(size=10),
+                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(size=9)),
                     margin=dict(l=10, r=10, t=10, b=10),
                     height=280  
                 )
-                st.plotly_chart(fig_pizza, use_container_width=True, key="grafico_rosca_solar")
+                st.plotly_chart(fig_pizza, use_container_width=True, theme="streamlit", key="grafico_rosca_solar")
             else:
                 st.info("Sem dados de status solar para esta data.")
 
