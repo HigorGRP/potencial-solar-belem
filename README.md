@@ -34,7 +34,7 @@ Abaixo é possível acompanhar a evolução da interface e a validação do mode
 Fluxo automatizado de engenharia de dados do projeto:
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#0b192c', 'primaryColor': '#1e3a8a', 'primaryTextColor': '#fff', 'primaryBorderColor': '#ffd700', 'lineColor': '#ffd700', 'secondaryColor': '#1e293b', 'tertiaryColor': '#0f172a'}}}%%
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#0d1117', 'primaryColor': '#1f6feb', 'primaryTextColor': '#f0f6fc', 'primaryBorderColor': '#388bfd', 'lineColor': '#8b949e', 'secondaryColor': '#161b22', 'tertiaryColor': '#21262d'}}}%%
 graph TD
     A["🌐 API Open-Meteo<br>(Fonte Meteorológica)"] -->|Consumo Diário| B["⚙️ GitHub Actions<br>(Orquestração & ETL Python)"]
     B -->|Carga de Dados| C["☁️ Google BigQuery<br>(Data Warehouse na Nuvem)"]
