@@ -154,11 +154,11 @@ try:
             fig_linha.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="black", size=10),
+                font=dict(color="white", size=10),
                 xaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
                 yaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
                 yaxis2=dict(title="", overlaying="y", side="right", showgrid=False),
-                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="black", size=9)),
+                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="white", size=9)),
                 margin=dict(l=10, r=10, t=10, b=10),
                 height=280
             )
@@ -185,7 +185,7 @@ try:
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
                     font=dict(color="black", size=10),
-                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="black", size=9)),
+                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="white", size=9)),
                     margin=dict(l=10, r=10, t=10, b=10),
                     height=280  
                 )
