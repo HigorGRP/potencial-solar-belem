@@ -5,6 +5,8 @@
 ![Google Cloud](https://img.shields.io/badge/Google_Cloud-BigQuery-orange?style=for-the-badge&logo=googlecloud)
 ![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=for-the-badge&logo=pandas)
 
+> **🔗 Acesse o Dashboard Online:** [https://potencial-solar-belem-higor.streamlit.app/](https://potencial-solar-belem-higor.streamlit.app/)
+
 ## 📌 Sobre o Projeto
 
 Este projeto nasceu da ideia de validar se os dados meteorológicos públicos (radiação solar, temperatura e umidade) seriam capazes de prever com precisão a eficiência de geração de energia no mundo real. 
