@@ -12,17 +12,17 @@
 
 Este projeto nasceu da ideia de validar se os dados meteorológicos públicos (radiação solar, temperatura e umidade) seriam capazes de prever com precisão a eficiência de geração de energia no mundo real. 
 
-Inicialmente, **estruturei um protótipo de validação utilizando Power BI** com arquivos locais para confrontar os indicadores climáticos com os relatórios de produção diária do meu próprio sistema fotovoltaico residencial (~8.5 kW). Com o sucesso da prova de conceito, evoluí o projeto para uma arquitetura de dados: construí uma pipeline de ETL em Python consumindo a API da Open-Meteo, automatizei sua orquestração diária, armazenei os dados em um Data Warehouse na nuvem (**Google BigQuery**) e publiquei um Data App interativo e em tempo real utilizando **Streamlit** e **Plotly**.
+Inicialmente, **estruturei um protótipo de validação utilizando Power BI** com arquivos locais para confrontar os indicadores climáticos com os relatórios de produção diária do meu próprio sistema fotovoltaico residencial (~8.5 kW). Com o sucesso da prova de conceito, evoluí o projeto para uma arquitetura de dados profissional e escalável: construí uma pipeline de ETL em Python consumindo a API da Open-Meteo, automatizei sua orquestração diária, armazenei os dados em um Data Warehouse na nuvem (**Google BigQuery**) e publiquei um Data App interativo e em tempo real utilizando **Streamlit** e **Plotly**.
 
 ---
 
-## ⚡ Validação Prática: Modelo vs. Geração Real Residencial
+## ⚡ Validação Prática: Evolução Visual do Projeto
 
-A grande virada analítica do projeto foi confrontar a teoria dos dados com a prática da geração solar real da minha residência:
+Abaixo é possível acompanhar a evolução da interface e a validação do modelo com a geração real da residência:
 
-| Prototipagem Inicial (Power BI) | Relatório Real do Inversor (App Residencial) |
+| 1. Prototipagem (Power BI) | 2. Dashboard em Nuvem (Streamlit) | 3. Relatório Real do Inversor (Casa) |
 | :---: | :---: | :---: |
-| ![Dashboard Power BI](dashboard.png) | ![Relatório Inversor](painel_solar.png.jpeg) | ![Painel Streamlit](painel_streamlit.png.)
+| ![Dashboard Power BI](dashboard.png) | ![Dashboard Streamlit](dashboard_streamlit.png) | ![Relatório Inversor](painel_solar.png.jpeg) |
 
 * **Aderência da Curva:** A janela de pico de radiação prevista no modelo (entre **10h e 15h**) coincide perfeitamente com o período de máxima geração registrada pelo aplicativo das placas em casa.
 * **Sensibilidade às Nuvens:** As oscilações bruscas no gráfico refletem as flutuações instantâneas de cobertura de nuvens e umidade capturadas pela API meteorológica.
@@ -31,15 +31,11 @@ A grande virada analítica do projeto foi confrontar a teoria dos dados com a pr
 
 ## 🏗️ Arquitetura e Orquestração da Pipeline de Dados
 
-Abaixo está o fluxo automatizado de engenharia de dados do projeto:
+Fluxo automatizado de engenharia de dados do projeto:
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#0b192c', 'primaryColor': '#1e3a8a', 'primaryTextColor': '#fff', 'primaryBorderColor': '#ffd700', 'lineColor': '#ffd700', 'secondaryColor': '#1e293b', 'tertiaryColor': '#0f172a'}}}%%
 graph TD
     A["🌐 API Open-Meteo<br>(Fonte Meteorológica)"] -->|Consumo Diário| B["⚙️ GitHub Actions<br>(Orquestração & ETL Python)"]
     B -->|Carga de Dados| C["☁️ Google BigQuery<br>(Data Warehouse na Nuvem)"]
     C -->|Consulta em Tempo Real| D["⚡ Streamlit App<br>(Dashboard Interativo)"]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#ff9,stroke:#333,stroke-width:2px
-    style D fill:#bfb,stroke:#333,stroke-width:2px
