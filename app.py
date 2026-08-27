@@ -8,6 +8,8 @@ Stack: Streamlit, Pandas, Plotly, Google Cloud BigQuery
 """
 
 import os
+import json
+import tempfile
 import streamlit as st
 from google.cloud import bigquery
 import pandas as pd
@@ -48,8 +50,19 @@ st.markdown("""
 # 2. CONFIGURAÇÃO DE CREDENCIAIS E CONEXÃO
 # ==========================================
 
-# Configuração de credenciais para ambiente local (caso o arquivo JSON exista na raiz)
-if os.path.exists("credenciais.json"):
+# Se estiver rodando no Streamlit Cloud, cria o arquivo de credenciais dinamicamente via st.secrets
+if "gcp_service_account" in st.secrets:
+    creds_dict = dict(st.secrets["gcp_service_account"])
+    
+    # Cria um arquivo temporário seguro para o cliente do BigQuery ler
+    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as temp_cred_file:
+        json.dump(creds_dict, temp_cred_file)
+        temp_cred_path = temp_cred_file.name
+        
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_cred_path
+
+# Caso contrário, tenta usar o arquivo JSON local tradicional
+elif os.path.exists("credenciais.json"):
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credenciais.json"
 
 # Constantes de infraestrutura do Google Cloud Platform (GCP)
