@@ -25,27 +25,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# Detecta dinamicamente se o tema atual é escuro ("dark") ou claro ("light")
-tema_atual = st.get_option("theme.base")
-cor_texto = "white" if tema_atual == "dark" else "black"
-cor_grid = "rgba(255,255,255,0.15)" if tema_atual == "dark" else "rgba(200,200,200,0.3)"
-
-# Injeção de CSS customizado para padronização de margens/espaçamentos
-st.markdown(f"""
-    <style>
-        h1, h2, h3, p {{
-            color: {cor_texto} !important;
-        }}
-        /* Reduz espaçamentos gerais para otimizar o layout em uma única tela */
-        .block-container {{
-            padding-top: 1.5rem;
-            padding-bottom: 1rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }}
-    </style>
-""", unsafe_allow_html=True)
-
 # ==========================================
 # 2. CONFIGURAÇÃO DE CREDENCIAIS E CONEXÃO
 # ==========================================
@@ -89,8 +68,39 @@ def carregar_dados_bigquery() -> pd.DataFrame:
 # 3. CONSTRUÇÃO DA INTERFACE E DOS COMPONENTES
 # ==========================================
 
+# ------------------------------------------
+# FILTROS E CONFIGURAÇÕES (BARRA LATERAL)
+# ------------------------------------------
+st.sidebar.header("Filtros do Painel")
+
+# Seletor manual de tema para garantir contraste perfeito das letras
+tema_visual = st.sidebar.selectbox("Tema do Dashboard:", ["Escuro", "Claro"])
+is_dark = (tema_visual == "Escuro")
+
+cor_texto = "white" if is_dark else "black"
+cor_grid = "rgba(255,255,255,0.15)" if is_dark else "rgba(200,200,200,0.3)"
+bg_main = "#0b192c" if is_dark else "#ffffff"
+
+# Injeção de CSS customizado baseado no tema escolhido
+st.markdown(f"""
+    <style>
+        .main {{
+            background-color: {bg_main};
+        }}
+        h1, h2, h3, p, label, .stMarkdown {{
+            color: {cor_texto} !important;
+        }}
+        .block-container {{
+            padding-top: 1.5rem;
+            padding-bottom: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }}
+    </style>
+""", unsafe_allow_html=True)
+
 # Título Principal do Dashboard
-st.markdown("<h3 style='text-align: center;'>Dashboard de Análise de Potencial Solar & Clima</h3>", unsafe_allow_html=True)
+st.markdown(f"<h3 style='text-align: center; color: {cor_texto};'>Dashboard de Análise de Potencial Solar & Clima</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
 try:
@@ -100,10 +110,6 @@ try:
     if df.empty:
         st.warning("A tabela no BigQuery está vazia.")
     else:
-        # ------------------------------------------
-        # FILTROS (BARRA LATERAL)
-        # ------------------------------------------
-        st.sidebar.header("Filtros do Painel")
         datas_disponiveis = df["data"].unique()
         data_selecionada = st.sidebar.selectbox("Selecione a Data:", datas_disponiveis)
         
@@ -134,7 +140,7 @@ try:
         
         # Gráfico 1: Linhas com Eixo Duplo (Irradiância Solar vs Temperatura por Hora)
         with col_graf1:
-            st.markdown("<p style='font-weight: bold; margin-bottom: 0px;'>RADIAÇÃO SOLAR X TEMPERATURA/HORA</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: {cor_texto}; font-weight: bold; margin-bottom: 0px;'>RADIAÇÃO SOLAR X TEMPERATURA/HORA</p>", unsafe_allow_html=True)
             
             fig_linha = go.Figure()
             
@@ -143,7 +149,7 @@ try:
                 x=df_filtrado["hora"], 
                 y=df_filtrado["irradiancia_solar"],
                 name="Irradiância",
-                line=dict(color="#ffd700" if tema_atual == "dark" else "#e6b800", width=2.5)
+                line=dict(color="#ffd700" if is_dark else "#e6b800", width=2.5)
             ))
             
             # Traço secundário: Temperatura (Eixo Y direito)
@@ -152,10 +158,10 @@ try:
                 y=df_filtrado["temperatura_c"],
                 name="Temperatura",
                 yaxis="y2",
-                line=dict(color="#ff4d4d" if tema_atual == "dark" else "#d93636", width=2.5)
+                line=dict(color="#ff4d4d" if is_dark else "#d93636", width=2.5)
             ))
             
-            # Layout e estilização do gráfico de linhas com cor de texto dinâmica
+            # Layout e estilização do gráfico de linhas
             fig_linha.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
@@ -171,7 +177,7 @@ try:
             
         # Gráfico 2: Gráfico de Rosca (Distribuição do Status de Geração Solar)
         with col_graf2:
-            st.markdown("<p style='font-weight: bold; margin-bottom: 0px;'>DISTRIBUIÇÃO DE POTENCIAL SOLAR (DIÁRIO)</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: {cor_texto}; font-weight: bold; margin-bottom: 0px;'>DISTRIBUIÇÃO DE POTENCIAL SOLAR (DIÁRIO)</p>", unsafe_allow_html=True)
             
             df_status = df_filtrado["status_geracao_solar"].value_counts().reset_index()
             df_status.columns = ["status_geracao_solar", "quantidade"]
@@ -185,7 +191,7 @@ try:
                     color_discrete_sequence=["#ffd700", "#777777", "#ff7f0e"]
                 )
                 
-                # Layout e estilização do gráfico de rosca com cor de texto dinâmica na legenda
+                # Layout e estilização do gráfico de rosca
                 fig_pizza.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
