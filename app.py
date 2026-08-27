@@ -116,11 +116,11 @@ try:
         umidade_media = df_filtrado["umidade_pct"].mean()
         
         with col1:
-            st.metric(label="MÉDIA TEMPERATURA", value=f"{temp_media:.2f} °C")
+            st.metric(label="MÉDIA TEMPERATURA", value=f"{temp_media:.1f} °C")
         with col2:
-            st.metric(label="RADIAÇÃO SOLAR MÁXIMA", value=f"{irradiancia_max:.2f} W/m²")
+            st.metric(label="RADIAÇÃO SOLAR MÁXIMA", value=f"{irradiancia_max:.1f} W/m²")
         with col3:
-            st.metric(label="MÉDIA UMIDADE", value=f"{umidade_media:.2f} %")
+            st.metric(label="MÉDIA UMIDADE", value=f"{umidade_media:.1f} %")
             
         # ------------------------------------------
         # SEÇÃO DE GRÁFICOS INTERATIVOS (PLOTLY)
