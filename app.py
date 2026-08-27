@@ -27,21 +27,40 @@ st.set_page_config(
     layout="wide"
 )
 
-# Injeção de CSS customizado para Dark Mode e padronização de margens/espaçamentos
+# Injeção de CSS customizado para travar o Dark Mode em todos os elementos
 st.markdown("""
     <style>
-        .main {
-            background-color: #0b192c;
+        /* Fundo principal da aplicação */
+        .main, .stApp {
+            background-color: #0b192c !important;
         }
-        h1, h2, h3 {
+        /* Fundo da barra lateral */
+        [data-testid="stSidebar"] {
+            background-color: #152b47 !important;
+        }
+        /* Textos de títulos padrão */
+        h1, h2, h3, h4, h5, h6, span {
+            color: #ffffff !important;
+        }
+        /* Estilização dos cards de métricas (st.metric) */
+        [data-testid="stMetric"] {
+            background-color: #152b47;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #223a5e;
+        }
+        [data-testid="stMetricLabel"] label {
+            color: #a0aec0 !important;
+        }
+        [data-testid="stMetricValue"] div {
             color: #ffffff !important;
         }
         /* Reduz espaçamentos gerais para otimizar o layout em uma única tela */
         .block-container {
             padding-top: 1.5rem;
-            padding-bottom: 1rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding-bottom: 1.0rem;
+            padding-left: 2.0rem;
+            padding-right: 2.0rem;
         }
     </style>
 """, unsafe_allow_html=True)
