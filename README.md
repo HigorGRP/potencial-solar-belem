@@ -30,6 +30,7 @@ Abaixo é possível acompanhar a evolução da interface e a validação do mode
 ---
 
 ## 🏗️ Arquitetura e Orquestração da Pipeline de Dados
+[🌐 API Open-Meteo] ➔ [⚙️ ETL Automatizado (GitHub Actions)] ➔ [☁️ Google BigQuery (Data Warehouse)] ➔ [⚡ Streamlit App (Cloud Deploy)]
 
 1. **Extração e Orquestração (ETL Diário):** Pipeline em Python programada e orquestrada de forma automatizada (via GitHub Actions), buscando os dados atualizados na API Open-Meteo e injetando no BigQuery sem intervenção manual.
 2. **Engenharia de Dados (Python):**
