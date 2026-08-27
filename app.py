@@ -25,19 +25,24 @@ st.set_page_config(
     layout="wide"
 )
 
-# Injeção de CSS customizado para padronização de margens/espaçamentos e adaptação dinâmica
-st.markdown("""
+# Detecta dinamicamente se o tema atual é escuro ("dark") ou claro ("light")
+tema_atual = st.get_option("theme.base")
+cor_texto = "white" if tema_atual == "dark" else "black"
+cor_grid = "rgba(255,255,255,0.15)" if tema_atual == "dark" else "rgba(200,200,200,0.3)"
+
+# Injeção de CSS customizado para padronização de margens/espaçamentos
+st.markdown(f"""
     <style>
-        h1, h2, h3 {
-            color: inherit !important;
-        }
+        h1, h2, h3, p {{
+            color: {cor_texto} !important;
+        }}
         /* Reduz espaçamentos gerais para otimizar o layout em uma única tela */
-        .block-container {
+        .block-container {{
             padding-top: 1.5rem;
             padding-bottom: 1rem;
             padding-left: 2rem;
             padding-right: 2rem;
-        }
+        }}
     </style>
 """, unsafe_allow_html=True)
 
@@ -138,7 +143,7 @@ try:
                 x=df_filtrado["hora"], 
                 y=df_filtrado["irradiancia_solar"],
                 name="Irradiância",
-                line=dict(color="#e6b800", width=2.5)  # Tom ligeiramente mais escuro para boa visibilidade no modo claro
+                line=dict(color="#ffd700" if tema_atual == "dark" else "#e6b800", width=2.5)
             ))
             
             # Traço secundário: Temperatura (Eixo Y direito)
@@ -147,18 +152,18 @@ try:
                 y=df_filtrado["temperatura_c"],
                 name="Temperatura",
                 yaxis="y2",
-                line=dict(color="#d93636", width=2.5)
+                line=dict(color="#ff4d4d" if tema_atual == "dark" else "#d93636", width=2.5)
             ))
             
-            # Layout e estilização do gráfico de linhas adaptado para texto escuro
+            # Layout e estilização do gráfico de linhas com cor de texto dinâmica
             fig_linha.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="black", size=10),
-                xaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
-                yaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
+                font=dict(color=cor_texto, size=10),
+                xaxis=dict(title="", gridcolor=cor_grid),
+                yaxis=dict(title="", gridcolor=cor_grid),
                 yaxis2=dict(title="", overlaying="y", side="right", showgrid=False),
-                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="black", size=9)),
+                legend=dict(orientation="h", y=1.2, x=0, font=dict(color=cor_texto, size=9)),
                 margin=dict(l=10, r=10, t=10, b=10),
                 height=280
             )
@@ -177,15 +182,15 @@ try:
                     names="status_geracao_solar", 
                     values="quantidade",
                     hole=0.5,
-                    color_discrete_sequence=["#e6b800", "#777777", "#ff7f0e"]
+                    color_discrete_sequence=["#ffd700", "#777777", "#ff7f0e"]
                 )
                 
-                # Layout e estilização do gráfico de rosca adaptado para texto escuro
+                # Layout e estilização do gráfico de rosca com cor de texto dinâmica na legenda
                 fig_pizza.update_layout(
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
-                    font=dict(color="black", size=10),
-                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="black", size=9)),
+                    font=dict(color=cor_texto, size=10),
+                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color=cor_texto, size=9)),
                     margin=dict(l=10, r=10, t=10, b=10),
                     height=280  
                 )
