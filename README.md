@@ -5,22 +5,13 @@
 ![Google Cloud](https://img.shields.io/badge/Google_Cloud-BigQuery-orange?style=for-the-badge&logo=googlecloud)
 ![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=for-the-badge&logo=pandas)
 
-> **🔗 Acesse o Dashboard Online:** [https://potencial-solar-belem-higor.streamlit.app/](https://potencial-solar-belem-higor.streamlit.app/)
+> **🔗 Acesse o Dashboard Online:** https://potencial-solar-belem-higor.streamlit.app/
 
 ## 📌 Sobre o Projeto
 
 Este projeto nasceu da ideia de validar se os dados meteorológicos públicos (radiação solar, temperatura e umidade) seriam capazes de prever com precisão a eficiência de geração de energia no mundo real. 
 
-Para isso, construí uma pipeline de dados em Python para consumir a API REST da Open-Meteo para a região de Belém-PA, armazenei e gerenciei os dados em um Data Warehouse na nuvem (**Google BigQuery**) e desenvolvi um Data App interativo e em tempo real utilizando **Streamlit** e **Plotly**. A validação prática do modelo foi feita comparando os indicadores climáticos diretamente com os **relatórios de produção diária do meu próprio sistema fotovoltaico residencial (~8.5 kW)**.
-
----
-
-## ⚡ Validação Prática: Modelo Climático vs. Placas Solares
-
-A grande virada analítica do projeto foi confrontar a teoria dos dados com a prática da geração solar real:
-
-* **Aderência da Curva:** A janela de pico de radiação prevista no dashboard (entre **10h e 15h**) coincide com o período de máxima geração registrada pelo aplicativo das placas.
-* **Sensibilidade às Nuvens:** As oscilações bruscas no gráfico de produção real refletem as flutuações instantâneas de cobertura de nuvens e umidade capturadas pelo modelo.
+Para isso, construí uma pipeline de dados em Python para consumir a API REST da Open-Meteo para a região de Belém-PA, armazenei e gerenciei os dados em um Data Warehouse na nuvem (**Google BigQuery**) e desenvolvi um Data App interativo e em tempo real utilizando **Streamlit** e **Plotly**. A validação prática do modelo foi feita confrontando os indicadores climáticos gerados diretamente com os relatórios de produção diária do meu próprio sistema fotovoltaico residencial (~8.5 kW).
 
 ---
 
