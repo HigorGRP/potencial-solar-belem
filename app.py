@@ -25,14 +25,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Injeção de CSS customizado para Dark Mode e padronização de margens/espaçamentos
+# Injeção de CSS customizado para padronização de margens/espaçamentos e adaptação dinâmica
 st.markdown("""
     <style>
-        .main {
-            background-color: #0b192c;
-        }
         h1, h2, h3 {
-            color: #ffffff !important;
+            color: inherit !important;
         }
         /* Reduz espaçamentos gerais para otimizar o layout em uma única tela */
         .block-container {
@@ -88,7 +85,7 @@ def carregar_dados_bigquery() -> pd.DataFrame:
 # ==========================================
 
 # Título Principal do Dashboard
-st.markdown("<h3 style='text-align: center; color: white;'>Dashboard de Análise de Potencial Solar & Clima</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Dashboard de Análise de Potencial Solar & Clima</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
 try:
@@ -132,7 +129,7 @@ try:
         
         # Gráfico 1: Linhas com Eixo Duplo (Irradiância Solar vs Temperatura por Hora)
         with col_graf1:
-            st.markdown("<p style='color: white; font-weight: bold; margin-bottom: 0px;'>RADIAÇÃO SOLAR X TEMPERATURA/HORA</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-weight: bold; margin-bottom: 0px;'>RADIAÇÃO SOLAR X TEMPERATURA/HORA</p>", unsafe_allow_html=True)
             
             fig_linha = go.Figure()
             
@@ -141,7 +138,7 @@ try:
                 x=df_filtrado["hora"], 
                 y=df_filtrado["irradiancia_solar"],
                 name="Irradiância",
-                line=dict(color="#ffd700", width=2.5)
+                line=dict(color="#e6b800", width=2.5)  # Tom ligeiramente mais escuro para boa visibilidade no modo claro
             ))
             
             # Traço secundário: Temperatura (Eixo Y direito)
@@ -150,26 +147,26 @@ try:
                 y=df_filtrado["temperatura_c"],
                 name="Temperatura",
                 yaxis="y2",
-                line=dict(color="#ff4d4d", width=2.5)
+                line=dict(color="#d93636", width=2.5)
             ))
             
-            # Layout e estilização do gráfico de linhas
+            # Layout e estilização do gráfico de linhas adaptado para texto escuro
             fig_linha.update_layout(
-                paper_bgcolor="#0b192c",
-                plot_bgcolor="#0b192c",
-                font=dict(color="white", size=10),
-                xaxis=dict(title="", gridcolor="#223a5e"),
-                yaxis=dict(title="", gridcolor="#223a5e"),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font=dict(color="black", size=10),
+                xaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
+                yaxis=dict(title="", gridcolor="rgba(200,200,200,0.3)"),
                 yaxis2=dict(title="", overlaying="y", side="right", showgrid=False),
-                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="white", size=9)),
+                legend=dict(orientation="h", y=1.2, x=0, font=dict(color="black", size=9)),
                 margin=dict(l=10, r=10, t=10, b=10),
-                height=280  # Altura compactada
+                height=280
             )
             st.plotly_chart(fig_linha, use_container_width=True, key="grafico_linhas_solar")
             
         # Gráfico 2: Gráfico de Rosca (Distribuição do Status de Geração Solar)
         with col_graf2:
-            st.markdown("<p style='color: white; font-weight: bold; margin-bottom: 0px;'>DISTRIBUIÇÃO DE POTENCIAL SOLAR (DIÁRIO)</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-weight: bold; margin-bottom: 0px;'>DISTRIBUIÇÃO DE POTENCIAL SOLAR (DIÁRIO)</p>", unsafe_allow_html=True)
             
             df_status = df_filtrado["status_geracao_solar"].value_counts().reset_index()
             df_status.columns = ["status_geracao_solar", "quantidade"]
@@ -180,15 +177,15 @@ try:
                     names="status_geracao_solar", 
                     values="quantidade",
                     hole=0.5,
-                    color_discrete_sequence=["#ffd700", "#555555", "#ff7f0e"]
+                    color_discrete_sequence=["#e6b800", "#777777", "#ff7f0e"]
                 )
                 
-                # Layout e estilização do gráfico de rosca
+                # Layout e estilização do gráfico de rosca adaptado para texto escuro
                 fig_pizza.update_layout(
-                    paper_bgcolor="#0b192c",
-                    plot_bgcolor="#0b192c",
-                    font=dict(color="white", size=10),
-                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="white", size=9)),
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    font=dict(color="black", size=10),
+                    legend=dict(orientation="v", y=0.5, x=1.0, font=dict(color="black", size=9)),
                     margin=dict(l=10, r=10, t=10, b=10),
                     height=280  
                 )
@@ -197,5 +194,4 @@ try:
                 st.info("Sem dados de status solar para esta data.")
 
 except Exception as e:
-    # Tratamento global de exceções para falhas de conexão com o Data Warehouse
     st.error(f"Erro ao conectar com o BigQuery ou carregar os dados: {e}")
