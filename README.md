@@ -16,16 +16,16 @@ Inicialmente, **estruturei um protótipo de validação utilizando Power BI** co
 
 ---
 
-## ⚡ Validação Prática: Prototipagem (Power BI) vs. Aplicação em Nuvem (Streamlit)
+## ⚡ Validação Prática: Modelo vs. Geração Real Residencial
 
-A grande virada analítica do projeto foi confrontar a teoria dos dados com a prática da geração solar real em diferentes etapas de maturidade:
+A grande virada analítica do projeto foi confrontar a teoria dos dados com a prática da geração solar real da minha residência:
 
-| Prototipagem Inicial (Power BI) | Solução Final em Nuvem (Streamlit App) |
+| Prototipagem Inicial (Power BI) | Relatório Real do Inversor (App Residencial) |
 | :---: | :---: |
-| ![Dashboard Power BI](dashboard.png) | ![Dashboard Streamlit](dashboard_streamlit.png) *(Substitua pelo nome da sua print do Streamlit, se tiver)* |
+| ![Dashboard Power BI](dashboard.png) | ![Relatório Inversor](painel_solar.png.jpeg) |
 
-* **Aderência da Curva:** A janela de pico de radiação prevista (entre **10h e 15h**) coincide perfeitamente com o período de máxima geração registrada pelo inversor real.
-* **Sensibilidade às Nuvens:** As oscilações bruscas no gráfico refletem as flutuações instantâneas de cobertura de nuvens e umidade capturadas pelo modelo meteorológico.
+* **Aderência da Curva:** A janela de pico de radiação prevista no modelo (entre **10h e 15h**) coincide perfeitamente com o período de máxima geração registrada pelo aplicativo das placas em casa.
+* **Sensibilidade às Nuvens:** As oscilações bruscas no gráfico refletem as flutuações instantâneas de cobertura de nuvens e umidade capturadas pela API meteorológica.
 
 ---
 
